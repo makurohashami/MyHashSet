@@ -17,7 +17,7 @@ public class MyHashSet implements MySet{
 
     public boolean add(Object o) {
         if(size > threshold) { resize(capacity * 2); }
-        table[size] = new MyEntry(o, size);
+        table[size] = new MyEntry(o);
         size++;
         return true;
     }
@@ -84,11 +84,9 @@ public class MyHashSet implements MySet{
     private static class MyEntry {
         private Object obj;
         private int hash;
-        private int position;
 
-        public MyEntry(Object obj, int size) {
+        public MyEntry(Object obj) {
             this.obj = obj;
-            this.position = size;
             this.hash = obj.hashCode();
         }
 
