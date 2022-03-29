@@ -8,7 +8,7 @@ public class MyHashSet implements MySet{
     private int capacity = 16;
     private final double loadFactor = 0.75;
     private double threshold = capacity * loadFactor;
-    public MyEntry[] table = new MyEntry[capacity];
+    private MyEntry[] table = new MyEntry[capacity];
 
     public MyHashSet() {}
     public MyHashSet(int capacity) {
