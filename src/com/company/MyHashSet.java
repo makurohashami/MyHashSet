@@ -17,9 +17,12 @@ public class MyHashSet implements MySet{
 
     public boolean add(Object o) {
         if(size > threshold) { resize(capacity * 2); }
-        table[size] = new MyEntry(o);
-        size++;
-        return true;
+        if(!contains(o)) {
+            table[size] = new MyEntry(o);
+            size++;
+            return true;
+        }
+        return false;
     }
 
     public void clear() {

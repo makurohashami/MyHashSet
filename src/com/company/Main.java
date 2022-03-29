@@ -10,7 +10,8 @@ public class Main {
         set.add(9);
         set.add(7.5);
         set.add("World");
-        set.add("!!");
+        System.out.println("Add Hello: " + set.add("Hello"));
+        System.out.println("Add Hello: " + set.add("Hello"));
         System.out.println(set);
         System.out.println("Size is: " + set.size());
         System.out.println("Remove 100: " + set.remove("100"));
