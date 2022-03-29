@@ -8,17 +8,17 @@ public class MyHashSet implements MySet{
     private int capacity = 16;
     private final double loadFactor = 0.75;
     private double threshold = capacity * loadFactor;
-    private MyEntry[] table = new MyEntry[capacity];
+    private Entry[] table = new Entry[capacity];
 
     public MyHashSet() {}
     public MyHashSet(int capacity) {
-        resize(capacity < Integer.MAX_VALUE / 2 ? capacity : Integer.MAX_VALUE / 2);
+        resize(Math.min(capacity, Integer.MAX_VALUE / 2));
     }
 
     public boolean add(Object o) {
         if(size > threshold) { resize(capacity * 2); }
         if(!contains(o)) {
-            table[size] = new MyEntry(o);
+            table[size] = new Entry(o);
             size++;
             return true;
         }
@@ -29,7 +29,7 @@ public class MyHashSet implements MySet{
         size = 0;
         capacity = 16;
         threshold = capacity * loadFactor;
-        table = new MyEntry[capacity];
+        table = new Entry[capacity];
     }
 
     public boolean contains(Object o) {
@@ -46,7 +46,7 @@ public class MyHashSet implements MySet{
 
     public boolean remove(Object o) {
         if(!contains(o)) { return false; }
-        MyEntry[] tableTemp = new MyEntry[capacity];
+        Entry[] tableTemp = new Entry[capacity];
         System.arraycopy(table, 0, tableTemp, 0, getObjIndex(o));
         System.arraycopy(table, (getObjIndex(o) + 1), tableTemp, getObjIndex(o), (size - getObjIndex(o) - 1));
         table = tableTemp;
@@ -59,7 +59,7 @@ public class MyHashSet implements MySet{
     }
 
     public Object[] toArray() {
-        MyEntry[] tableTemp = new MyEntry[size];
+        Entry[] tableTemp = new Entry[size];
         System.arraycopy(table, 0, tableTemp, 0, size);
         return tableTemp;
     }
@@ -67,6 +67,8 @@ public class MyHashSet implements MySet{
     public String toString() {
         return Arrays.toString(toArray());
     }
+
+    //TECHNICAL METHODS
 
     private int getObjIndex(Object o) {
         for(int i = 0; i < size; i++) {
@@ -79,16 +81,16 @@ public class MyHashSet implements MySet{
     private void resize(int capacity) {
         this.capacity = capacity;
         threshold = this.capacity * loadFactor;
-        MyEntry[] tableTemp = new MyEntry[this.capacity];
+        Entry[] tableTemp = new Entry[this.capacity];
         System.arraycopy(table, 0, tableTemp, 0, table.length);
         table = tableTemp;
     }
 
-    private static class MyEntry {
-        private Object obj;
-        private int hash;
+    private static class Entry implements MySet.MyEntry{
+        private final Object obj;
+        private final int hash;
 
-        public MyEntry(Object obj) {
+        public Entry(Object obj) {
             this.obj = obj;
             this.hash = obj.hashCode();
         }
