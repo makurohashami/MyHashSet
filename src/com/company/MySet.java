@@ -13,5 +13,5 @@ public interface MySet {
 
     int size();
 
-    String[] toArray();
+    Object[] toArray();
 }
