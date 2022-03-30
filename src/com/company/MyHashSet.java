@@ -17,12 +17,10 @@ public class MyHashSet implements MySet{
 
     public boolean add(Object o) {
         if(size > threshold) { resize(capacity * 2); }
-        if(!contains(o)) {
-            table[size] = new Entry(o);
-            size++;
-            return true;
-        }
-        return false;
+        if(!contains(o)) {return false;}
+        table[size] = new Entry(o);
+        size++;
+        return true;
     }
 
     public void clear() {
@@ -33,6 +31,7 @@ public class MyHashSet implements MySet{
     }
 
     public boolean contains(Object o) {
+        if(o == null) { return false; }
         for(int i = 0; i < size; i++) {
             if(table[i].hash == o.hashCode())
                 return true;

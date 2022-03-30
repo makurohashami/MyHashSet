@@ -30,6 +30,10 @@ public class Main {
         System.out.println(set);
         System.out.println("contains Test: " + set.contains("Test"));
         System.out.println("contains Tesu: " + set.contains("Tesu"));
+        System.out.println();
+        System.out.println("Remove Null: " + set.remove(null));
+        System.out.println("contains Null: " + set.contains(null));
+        System.out.println("add Null: " + set.add(null));
 
     }
 }
