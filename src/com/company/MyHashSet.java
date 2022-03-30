@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Arrays;
 
-public class MyHashSet implements MySet{
+public class MyHashSet<K> implements MySet<K>{
 
     private int size = 0;
     private int capacity = 16;
@@ -15,10 +15,10 @@ public class MyHashSet implements MySet{
         resize(Math.min(capacity, Integer.MAX_VALUE / 2));
     }
 
-    public boolean add(Object o) {
+    public boolean add(K o) {
         if(size > threshold) { resize(capacity * 2); }
-        if(!contains(o)) {return false;}
-        table[size] = new Entry(o);
+        if(contains(o)) {return false;}
+        table[size] = new Entry<>(o);
         size++;
         return true;
     }
@@ -30,7 +30,7 @@ public class MyHashSet implements MySet{
         table = new Entry[capacity];
     }
 
-    public boolean contains(Object o) {
+    public boolean contains(K o) {
         if(o == null) { return false; }
         for(int i = 0; i < size; i++) {
             if(table[i].hash == o.hashCode())
@@ -43,7 +43,7 @@ public class MyHashSet implements MySet{
         return size == 0;
     }
 
-    public boolean remove(Object o) {
+    public boolean remove(K o) {
         if(!contains(o)) { return false; }
         Entry[] tableTemp = new Entry[capacity];
         System.arraycopy(table, 0, tableTemp, 0, getObjIndex(o));
@@ -57,7 +57,8 @@ public class MyHashSet implements MySet{
        return size;
     }
 
-    public Object[] toArray() {
+    //todo Попробовать возвращать <K>
+    public Entry[] toArray() {
         Entry[] tableTemp = new Entry[size];
         System.arraycopy(table, 0, tableTemp, 0, size);
         return tableTemp;
@@ -69,7 +70,7 @@ public class MyHashSet implements MySet{
 
     //TECHNICAL METHODS
 
-    private int getObjIndex(Object o) {
+    private int getObjIndex(K o) {
         for(int i = 0; i < size; i++) {
             if(table[i].hash == o.hashCode())
                 return i;
@@ -85,11 +86,11 @@ public class MyHashSet implements MySet{
         table = tableTemp;
     }
 
-    private static class Entry implements MySet.MyEntry{
-        private final Object obj;
+    private static class Entry<K> implements MySet.MyEntry<K>{
+        private final K obj;
         private final int hash;
 
-        public Entry(Object obj) {
+        public Entry(K obj) {
             this.obj = obj;
             this.hash = obj.hashCode();
         }

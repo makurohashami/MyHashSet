@@ -1,24 +1,24 @@
 package com.company;
 
-public interface MySet {
+public interface MySet<K> {
 
-    interface MyEntry {
+    interface MyEntry<K> {
         Object obj = null;
         int hash = 0;
         String toString();
     }
 
-    boolean add(Object o);
+    boolean add(K o);
 
     void clear();
 
-    boolean contains(Object o);
+    boolean contains(K o);
 
     boolean isEmpty();
 
-    boolean remove(Object o);
+    boolean remove(K o);
 
     int size();
 
-    Object[] toArray();
+    MyEntry[] toArray();
 }
