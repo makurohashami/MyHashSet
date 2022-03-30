@@ -57,11 +57,10 @@ public class MyHashSet<K> implements MySet<K>{
        return size;
     }
 
-    //todo Попробовать возвращать <K>
-    public Entry[] toArray() {
+    public K[] toArray() {
         Entry[] tableTemp = new Entry[size];
         System.arraycopy(table, 0, tableTemp, 0, size);
-        return tableTemp;
+        return (K[]) tableTemp;
     }
 
     public String toString() {

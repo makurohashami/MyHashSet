@@ -20,5 +20,5 @@ public interface MySet<K> {
 
     int size();
 
-    MyEntry[] toArray();
+    K[] toArray();
 }
