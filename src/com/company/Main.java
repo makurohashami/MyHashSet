@@ -3,7 +3,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        MySet set = new MyHashSet(20);
+        MySet set = new MyHashSet(5);
         System.out.println("isEmpty: " + set.isEmpty());
         set.add("Test");
         set.add("522");

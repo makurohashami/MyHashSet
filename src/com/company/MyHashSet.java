@@ -81,7 +81,7 @@ public class MyHashSet implements MySet{
         this.capacity = capacity;
         threshold = this.capacity * loadFactor;
         Entry[] tableTemp = new Entry[this.capacity];
-        System.arraycopy(table, 0, tableTemp, 0, table.length);
+        System.arraycopy(table, 0, tableTemp, 0, size);
         table = tableTemp;
     }
 
